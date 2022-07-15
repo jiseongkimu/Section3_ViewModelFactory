@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         viewModelFactory = MainActivityViewModelFactory(125)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainActivityViewModel::class.java)
 
+        binding.myViewModel = viewModel
+
         // 메인 액티비티에서 count의 value를 observe한다.
         // 뷰모델에서 private 변수를 대신 참조할 변수를 사용
         // observe를 통해 countTotal(자동으로 get이 호출되면서 count에 접근)값의 변경을 감지
@@ -29,9 +31,5 @@ class MainActivity : AppCompatActivity() {
         viewModel.countTotal.observe(this, Observer {
             binding.countText.text = it.toString()
         })
-
-        binding.button.setOnClickListener {
-            viewModel.updatedCount()
-        }
     }
 }
